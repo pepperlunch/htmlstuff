@@ -1,0 +1,695 @@
+<html><head><style type="text/css"> {
+}
+</style><style id="st_globalStyles">
+
+</style><style>
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+@font-face {
+  font-family: "SF Pro Text-Semibold";
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://anima-uploads.s3.amazonaws.com/projects/6493ccb06d8287a214c6fd2e/fonts/fontsfree-net-sfprotext-semibold.ttf') format("truetype");
+}
+
+.screen textarea:focus,
+.screen input:focus {
+  outline: none;
+}
+
+.screen * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.screen div {
+  -webkit-text-size-adjust: none;
+}
+
+.component-wrapper a {
+  display: contents;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.component-wrapper * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.component-wrapper a *,
+.component-wrapper input,
+.component-wrapper video,
+.component-wrapper iframe {
+  pointer-events: auto;
+}
+
+.component-wrapper.not-ready,
+.component-wrapper.not-ready * {
+  visibility: hidden !important;
+}
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+
+.full-width-a {
+  width: 100%;
+}
+
+.full-height-a {
+  height: 100%;
+}
+
+.container-center-vertical {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  pointer-events: none;
+}
+
+.container-center-vertical > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.container-center-horizontal > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.auto-animated div {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated input {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated .container-center-vertical,
+.auto-animated .container-center-horizontal {
+  opacity: 1;
+}
+
+.overlay-base {
+  display: none;
+  height: 100%;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.overlay-base.animate-appear {
+  align-items: center;
+  animation: reveal 0.3s ease-in-out 1 normal forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+}
+
+.overlay-base.animate-disappear {
+  animation: reveal 0.3s ease-in-out 1 reverse forwards;
+  display: block;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.overlay-base.animate-disappear * {
+  pointer-events: none;
+}
+
+.align-self-flex-start {
+  align-self: flex-start;
+}
+
+.align-self-flex-end {
+  align-self: flex-end;
+}
+
+.align-self-flex-center {
+  align-self: flex-center;
+}
+
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.valign-text-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+input:focus {
+  outline: none;
+}
+
+.listeners-active,
+.listeners-active * {
+  pointer-events: auto;
+}
+
+.hidden,
+.hidden * {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.smart-layers-pointers,
+.smart-layers-pointers * {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.listeners-active-click,
+.listeners-active-click * {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+:root { 
+  --black: #000000b2;
+  --black-2: #010101;
+  --label-colorlightprimary: #000000;
+  --white: #ffffffb2;
+  --white-2: #ffffff;
+  --white-3: #ffffff66;
+ 
+  --font-size-l: 17px;
+  --font-size-m: 15px;
+  --font-size-s: 14px;
+  --font-size-xl: 30px;
+  --font-size-xs: 12px;
+  --font-size-xxs: 7px;
+}
+
+.title-7KuyOc {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 0px;
+  width: 179px;
+}
+
+.notch-rdaKGn {
+  background-color: transparent;
+  height: 30px;
+  left: 113px;
+  position: absolute;
+  top: 0px;
+  width: 164px;
+}
+
+.left-side-rdaKGn {
+  background-color: transparent;
+  height: 21px;
+  left: 27px;
+  position: absolute;
+  top: 14px;
+  width: 54px;
+}
+
+.status-bar-time-YPg5xh {
+  background-color: transparent;
+  border-radius: 24px;
+  height: 21px;
+  left: 0px;
+  position: relative;
+  top: 0px;
+  width: 54px;
+}
+
+.x941-GuGQdY {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: -0.41px;
+  line-height: 22px;
+  position: absolute;
+  text-align: center;
+  top: 1px;
+  white-space: nowrap;
+  width: 54px;
+}
+
+.battery-qL0AlJ {
+  background-color: transparent;
+  height: 13px;
+  left: 50px;
+  position: absolute;
+  top: 0px;
+  width: 27px;
+}
+
+.wifi-qL0AlJ {
+  background-color: transparent;
+  height: 12px;
+  left: 26px;
+  position: absolute;
+  top: 1px;
+  width: 17px;
+}
+
+.icon-mobile-signal-qL0AlJ {
+  background-color: transparent;
+  height: 12px;
+  left: 0px;
+  position: absolute;
+  top: 1px;
+  width: 18px;
+}
+
+.background-decor {
+  background-color: transparent;
+  height: 844px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+
+.search-bar {
+  background-color: transparent;
+  position: absolute;
+}
+
+.expand-video-u40top-leftu41-1 {
+  background-color: var(--white-2);
+  height: 844px;
+  overflow: hidden;
+  overflow-x: hidden;
+  position: relative;
+  width: 390px;
+}
+
+.expand-video-u40top-leftu41-1 .bottom-bar-C61RwL {
+  background-color: transparent;
+  height: 70px;
+  left: 0px;
+  position: absolute;
+  top: 774px;
+  width: 390px;
+}
+
+.expand-video-u40top-leftu41-1 .rectangle-7-2voLeP {
+  background-color: var(--white-3);
+  height: 70px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+
+.expand-video-u40top-leftu41-1 .rectangle-22-2voLeP {
+  background-color: transparent;
+  height: 31px;
+  left: 90px;
+  position: absolute;
+  top: 10px;
+  width: 57px;
+}
+
+.expand-video-u40top-leftu41-1 .icon-magnifyingglass-2voLeP {
+  background-color: transparent;
+  height: 18px;
+  left: 109px;
+  position: absolute;
+  top: 16px;
+  width: 18px;
+}
+
+.expand-video-u40top-leftu41-1 .user-profile-focus-c-2voLeP {
+  background-color: transparent;
+  cursor: pointer;
+  height: 20px;
+  left: 336px;
+  position: absolute;
+  top: 15px;
+  width: 17px;
+}
+
+.expand-video-u40top-leftu41-1 .chat-bubble-typing-o-2voLeP {
+  background-color: transparent;
+  cursor: pointer;
+  height: 20px;
+  left: 264px;
+  position: absolute;
+  top: 14px;
+  width: 21px;
+}
+
+.expand-video-u40top-leftu41-1 .home-indicator-C61RwL {
+  background-color: transparent;
+  height: 34px;
+  left: 12px;
+  position: absolute;
+  top: 806px;
+  width: 375px;
+}
+
+.expand-video-u40top-leftu41-1 .home-indicator-BJ28qq {
+  background-color: var(--label-colorlightprimary);
+  border-radius: 100px;
+  height: 5px;
+  left: 121px;
+  position: relative;
+  top: 21px;
+  width: 134px;
+}
+
+.expand-video-u40top-leftu41-1 .rectangle-15-C61RwL {
+  background-color: transparent;
+  border: 0.5px solid;
+  border-color: var(--black);
+  border-radius: 5px;
+  height: 50px;
+  left: 408px;
+  position: absolute;
+  top: 642px;
+  width: 50px;
+}
+
+.expand-video-u40top-leftu41-1 .summary-C61RwL {
+  left: 471px;
+  top: 639px;
+  width: 79px;
+}
+
+.expand-video-u40top-leftu41-1 .home-indicator-VMr6Om {
+  background-color: transparent;
+  height: 34px;
+  left: 12px;
+  position: absolute;
+  top: 806px;
+  width: 375px;
+}
+
+.expand-video-u40top-leftu41-1 .home-indicator-qn0gnF {
+  background-color: var(--label-colorlightprimary);
+  border-radius: 100px;
+  height: 5px;
+  left: 121px;
+  position: relative;
+  top: 21px;
+  width: 134px;
+}
+
+.expand-video-u40top-leftu41-1 .outline-home-1-C61RwL {
+  background-color: transparent;
+  cursor: pointer;
+  height: 24px;
+  left: 40px;
+  position: absolute;
+  top: 788px;
+  width: 24px;
+}
+
+.expand-video-u40top-leftu41-1 .titleslogan-C61RwL {
+  background-color: transparent;
+  height: 62px;
+  left: 32px;
+  position: absolute;
+  top: 53px;
+  width: 330px;
+}
+
+.expand-video-u40top-leftu41-1 .your-personal-saved-videos-vault-7KuyOc {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 41px;
+  width: 326px;
+}
+
+.expand-video-u40top-leftu41-1 .vector-C61RwL {
+  background-color: transparent;
+  cursor: pointer;
+  height: 21px;
+  left: 184px;
+  position: absolute;
+  top: 788px;
+  width: 21px;
+}
+
+.expand-video-u40top-leftu41-1 .vector-43-R69ixD {
+  background-color: transparent;
+  height: 23px;
+  left: -1px;
+  position: absolute;
+  top: -1px;
+  width: 23px;
+}
+
+.expand-video-u40top-leftu41-1 .vector-44-R69ixD {
+  background-color: transparent;
+  height: 9px;
+  left: 6px;
+  position: absolute;
+  top: 6px;
+  width: 9px;
+}
+
+.expand-video-u40top-leftu41-1 .status-bar-i-phone-16-C61RwL {
+  background-color: transparent;
+  height: 47px;
+  left: 0px;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+
+.expand-video-u40top-leftu41-1 .notch-M6YQOL {
+  background-color: transparent;
+  height: 30px;
+  left: 113px;
+  position: absolute;
+  top: 0px;
+  width: 164px;
+}
+
+.expand-video-u40top-leftu41-1 .left-side-M6YQOL {
+  background-color: transparent;
+  height: 21px;
+  left: 27px;
+  position: absolute;
+  top: 14px;
+  width: 54px;
+}
+
+.expand-video-u40top-leftu41-1 .status-bar-time-GrPdPU {
+  background-color: transparent;
+  border-radius: 24px;
+  height: 21px;
+  left: 0px;
+  position: relative;
+  top: 0px;
+  width: 54px;
+}
+
+.expand-video-u40top-leftu41-1 .x941-K887ag {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: -0.41px;
+  line-height: 22px;
+  position: absolute;
+  text-align: center;
+  top: 1px;
+  white-space: nowrap;
+  width: 54px;
+}
+
+.expand-video-u40top-leftu41-1 .right-side-M6YQOL {
+  background-color: transparent;
+  height: 13px;
+  left: 286px;
+  position: absolute;
+  top: 19px;
+  width: 77px;
+}
+
+.expand-video-u40top-leftu41-1 .battery-Gu2dE7 {
+  background-color: transparent;
+  height: 13px;
+  left: 50px;
+  position: absolute;
+  top: 0px;
+  width: 27px;
+}
+
+.expand-video-u40top-leftu41-1 .wifi-Gu2dE7 {
+  background-color: transparent;
+  height: 12px;
+  left: 26px;
+  position: absolute;
+  top: 1px;
+  width: 17px;
+}
+
+.expand-video-u40top-leftu41-1 .icon-mobile-signal-Gu2dE7 {
+  background-color: transparent;
+  height: 12px;
+  left: 0px;
+  position: absolute;
+  top: 1px;
+  width: 18px;
+}
+
+.expand-video-u40top-leftu41-1 .videos-C61RwL {
+  background-color: transparent;
+  height: 588px;
+  left: 27px;
+  position: absolute;
+  top: 144px;
+  width: 336px;
+}
+
+.expand-video-u40top-leftu41-1 .rectangle-41-C61RwL {
+  background-color: var(--white);
+  border-radius: 0px 0px 20px 20px;
+  height: 110px;
+  left: 31px;
+  opacity: 0.8;
+  position: absolute;
+  top: 614px;
+  width: 329px;
+}
+
+.expand-video-u40top-leftu41-1 .rectangle-42-C61RwL {
+  background-color: transparent;
+  border: 0.5px solid;
+  border-color: var(--black);
+  border-radius: 5px;
+  height: 50px;
+  left: 72px;
+  position: absolute;
+  top: 641px;
+  width: 50px;
+}
+
+.expand-video-u40top-leftu41-1 .summary-VMr6Om {
+  left: 137px;
+  top: 638px;
+  width: 78px;
+}
+
+.expand-video-u40top-leftu41-1 .rectangle-43-C61RwL {
+  background-color: var(--white);
+  border-radius: 20px 20px 0px 0px;
+  box-shadow: 0px 0px 0px #00000040;
+  height: 61px;
+  left: 31px;
+  opacity: 0.8;
+  position: absolute;
+  top: 144px;
+  width: 329px;
+}
+
+.expand-video-u40top-leftu41-1 .username-C61RwL {
+  background-color: transparent;
+  height: auto;
+  left: 64px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 165px;
+  width: 77px;
+}
+
+.expand-video-u40top-leftu41-1 .group-4499-C61RwL {
+  background-color: transparent;
+  height: 24px;
+  left: 191px;
+  position: absolute;
+  top: 164px;
+  width: 140px;
+}
+
+.expand-video-u40top-leftu41-1 .star-1-5UqsSU {
+  background-color: transparent;
+  height: 24px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 26px;
+}
+
+.expand-video-u40top-leftu41-1 .star-2-5UqsSU {
+  background-color: transparent;
+  height: 24px;
+  left: 28px;
+  position: absolute;
+  top: 0px;
+  width: 26px;
+}
+
+.expand-video-u40top-leftu41-1 .star-3-5UqsSU {
+  background-color: transparent;
+  height: 24px;
+  left: 57px;
+  position: absolute;
+  top: 0px;
+  width: 26px;
+}
+
+.expand-video-u40top-leftu41-1 .star-4-5UqsSU {
+  background-color: transparent;
+  height: 24px;
+  left: 85px;
+  position: absolute;
+  top: 0px;
+  width: 26px;
+}
+
+.expand-video-u40top-leftu41-1 .star-5-5UqsSU {
+  background-color: transparent;
+  height: 24px;
+  left: 114px;
+  position: absolute;
+  top: 0px;
+  width: 26px;
+}
+
+.expand-video-u40top-leftu41-1 .summary {
+  background-color: transparent;
+  height: auto;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+}
+</style><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png"><meta name="og:type" content="website"><meta name="twitter:card" content="photo"></head><body style="margin: 0;background: #ffffff;"><input type="hidden" id="anPageName" name="page" value="expand-video-u40top-leftu41-1"><div class="container-center-horizontal"><div class="expand-video-u40top-leftu41-1 screen " data-id="73:473" style="margin-top: 70px;"><img class="background-decor" data-id="73:474" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/background-decor.png" alt="Background decor"><img class="background-decor" data-id="73:478" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/background-decor.png" alt="Background decor"><div class="bottom-bar-C61RwL" data-id="73:484"><div class="rectangle-7-2voLeP" data-id="73:485"></div><img class="rectangle-22-2voLeP" data-id="73:510" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/rectangle-21.svg" alt="Rectangle 22"><img class="icon-magnifyingglass-2voLeP" data-id="73:486" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/icon---magnifyingglass.svg" alt="Icon / magnifyingglass"><a href="profile"><img class="user-profile-focus-c-2voLeP" data-id="73:487" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/user-profile-focus--close-geometric-human-person-profile-focus-u-3.svg" alt="user-profile-focus--close-geometric-human-person-profile-focus-user" data-hotspot-id="hp-0"></a><a href="messages"><img class="chat-bubble-typing-o-2voLeP" data-id="73:491" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/chat-bubble-typing-oval--messages-message-bubble-typing-chat-3.svg" alt="chat-bubble-typing-oval--messages-message-bubble-typing-chat" data-hotspot-id="hp-1"></a></div><div class="home-indicator-C61RwL" data-id="73:503"><div class="home-indicator-BJ28qq" data-id="I73:503;5:3093"></div></div><div class="rectangle-15-C61RwL" data-id="73:505"></div><div class="summary-C61RwL summary laomn-regular-normal-black-15px" data-id="73:506">Summary...</div><div class="home-indicator-VMr6Om" data-id="73:509"><div class="home-indicator-qn0gnF" data-id="I73:509;5:3093"></div></div><a href="home-page"><img class="outline-home-1-C61RwL" data-id="73:511" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/outline---home-1.svg" alt="outline / home-1" data-hotspot-id="hp-2"></a><div class="titleslogan-C61RwL" data-id="73:512"><h1 class="title-7KuyOc lantingheisc-heavy-normal-black-30px" data-id="73:513">SAVIOR</h1><p class="your-personal-saved-videos-vault-7KuyOc laomn-regular-normal-black-15px" data-id="73:514">Your personal saved videos vault.</p></div><a href="add-post-page"><div class="vector-C61RwL" data-id="73:515" data-hotspot-id="hp-3"><img class="vector-43-R69ixD" data-id="73:516" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/vector-43.svg" alt="Vector-43"><img class="vector-44-R69ixD" data-id="73:517" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/vector-44.svg" alt="Vector-44"></div></a><div class="status-bar-i-phone-16-C61RwL" data-id="73:522"><img class="notch-M6YQOL" data-id="I73:522;839:7137" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/notch@2x.png" alt="Notch"><div class="left-side-M6YQOL" data-id="I73:522;839:7139"><div class="status-bar-time-GrPdPU" data-id="I73:522;839:7140"><div class="x941-K887ag sfprotext-normal-black-17px" data-id="I73:522;839:7140;839:7100">9:41</div></div></div><div class="right-side-M6YQOL" data-id="I73:522;839:7141"><img class="battery-Gu2dE7" data-id="I73:522;839:7142" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/battery@2x.png" alt="Battery"><img class="wifi-Gu2dE7" data-id="I73:522;839:7146" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/wifi.svg" alt="Wifi"><img class="icon-mobile-signal-Gu2dE7" data-id="I73:522;839:7150" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/icon---mobile-signal.svg" alt="Icon / Mobile Signal"></div></div><img class="videos-C61RwL" data-id="73:794" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/videos.png" alt="Videos"><div class="rectangle-41-C61RwL" data-id="73:796"></div><div class="rectangle-42-C61RwL" data-id="73:797"></div><div class="summary-VMr6Om summary laomn-regular-normal-black-15px" data-id="73:798">Summary...</div><div class="rectangle-43-C61RwL" data-id="73:799"></div><div class="username-C61RwL laomn-regular-normal-black-15px" data-id="73:800">Username</div><div class="group-4499-C61RwL" data-id="73:801"><img class="star-1-5UqsSU" data-id="73:802" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/star-1-2.svg" alt="Star 1"><img class="star-2-5UqsSU" data-id="73:803" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/star-2-2.svg" alt="Star 2"><img class="star-3-5UqsSU" data-id="73:804" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/star-3.svg" alt="Star 3"><img class="star-4-5UqsSU" data-id="73:805" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/star-4-2.svg" alt="Star 4"><img class="star-5-5UqsSU" data-id="73:806" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fc71f86cebbbcd5b3a5dc/img/star-5-2.svg" alt="Star 5"></div></div></div><script src="launchpad-js/launchpad-banner.js" async=""></script><script defer="" src="https://animaapp.s3.amazonaws.com/static/restart-btn.min.js"></script><div id="anima-interface" data-turbo-permanent="true" class="idle"><!---->
+
+      </div>
+      <div id="hotspots_wrapper"><div class="hotspot" id="hp-0" style="width: 17px; height: 20px; top: 859px; left: 623.4px; opacity: 0; z-index: -1;"></div><div class="hotspot" id="hp-1" style="width: 21px; height: 20px; top: 858px; left: 551.4px; opacity: 0; z-index: -1;"></div><div class="hotspot" id="hp-2" style="width: 24px; height: 24px; top: 858px; left: 327.4px; opacity: 0; z-index: -1;"></div><div class="hotspot" id="hp-3" style="width: 21px; height: 21px; top: 858px; left: 471.4px; opacity: 0; z-index: -1;"></div><div class="hotspot" id="hp-4" style="top: 88.8px; left: 0px; opacity: 0; z-index: -1;"></div></div><div id="t_preload_links"></div></body></html>
