@@ -1,0 +1,2328 @@
+<html><head><style type="text/css">.turbo-progress-bar {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #0076ff;
+  z-index: 9999;
+  transition:
+    width 300ms ease-out,
+    opacity 150ms 150ms ease-in;
+  transform: translate3d(0, 0, 0);
+}
+</style><style id="st_globalStyles">
+/* MEDIA QUERIES */
+.anima-desktop-only {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+
+/* SCROLLBAR */
+
+[dark-scroll]::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+[dark-scroll]::-webkit-scrollbar-track-piece {
+  background-color: #2b2b2b;
+  border: 1px solid #1d1d1d;
+}
+
+[dark-scroll]::-webkit-scrollbar-thumb {
+  height: 10px;
+  background-color: #4d4d4d;
+}
+[dark-scroll]::-webkit-scrollbar-thumb:hover {
+  background-color: #5a5a5a;
+}
+
+/* LOAD PROGRESS */
+
+.turbolinks-progress-bar {
+  height: 3px;
+  background-color: #ff6250;
+}
+
+/* GROUPING */
+
+[data-id].ui-selecting {
+  box-shadow: inset 0 0 0 1px #4285f4 !important;
+}
+[data-id].ui-selected {
+  box-shadow: inset 0 0 0 1px #4285f4 !important;
+}
+
+/* CURSOR */
+
+body[mode='comments'] * {
+  cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00LjkxNjQ4IDIzLjQxMDlDNS40OTE1MyAyMi45ODg3IDUuOTMxNzkgMjIuMzkzNSA2LjIzMjggMjEuNjQwN0M0Ljc5MDY5IDE5LjczODMgNCAxNy4zOTMzIDQgMTQuOTk3NUM0IDguOTM0MSA4LjkzMjgyIDQgMTUuMDAyMiA0QzIxLjA3MTcgNCAyNiA4LjkzOTE5IDI2IDE1LjAwMjVDMjYgMjEuMDY1OSAyMS4wNjcyIDI2IDE0Ljk5NzggMjZDMTIuOTg5NiAyNiAxMS4wMzUzIDI1LjQ1NTcgOS4zMjM2NyAyNC40MjMxQzguNDI5NjUgMjQuOTU3MiA3LjQxNDM0IDI1LjIyNjggNi4zMDAxOCAyNS4yMjY4QzUuOTU0MjYgMjUuMjI2OCA1LjU5OTM1IDI1LjIwMTQgNS4yNTM0MiAyNS4xNDU0QzQuOTAzIDI1LjA4OTUgNC42Mjg5NiAyNC44MDQ2IDQuNTUyNTggMjQuNDE4QzQuNDc2MjEgMjQuMDI2NCA0LjYxOTk3IDIzLjYyOTYgNC45MTY0OCAyMy40MTA5WiIgZmlsbD0iI0ZGNjI1MCIvPgo8L3N2Zz4K')
+      0 24,
+    auto !important;
+}
+
+body[mode='code'] [data-id]:not(.hidden) {
+  cursor: default;
+}
+
+/* default node state */
+
+body[mode='code'] [data-id]:not(.hidden), body[mode='comments'] [data-id]:not(.hidden) {
+  pointer-events: all;
+}
+
+/* is_image */
+
+body[mode='code'] [data-id].is_image [data-id], body[mode='comments'] [data-id].is_image [data-id] {
+  pointer-events: none !important;
+}
+
+/* without a data-id or ignored */
+
+[data-id].ignore,body[mode='code'] *:not([data-id]) {
+  pointer-events: none !important;
+}
+/* disable transforms for ignored elements */
+
+
+body[mode='code'] [data-id]:hover{
+  transform: none !important;
+}
+
+/* ANIMA BUTTONS */
+.an-button {
+  position: relative;
+  height: 28px;
+  padding: 0 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  transition-property: all;
+  transition-duration: 100ms;
+  appearance: none;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  border-width: 0;
+}
+
+.an-button > div {
+  width: 100%;
+}
+
+.an-button.primary {
+  background: #ff6250;
+  color: #ffffff;
+}
+
+.an-button.primary:hover:not(:disabled) {
+  background: #e2412e;
+}
+
+.an-button.secondary {
+  background: transparent;
+  border: 1px solid #ff6250;
+  color: #ff6250;
+}
+
+.an-button.secondary:hover:not(:disabled) {
+  color: #ffffff;
+  background: #ff6250;
+}
+
+.an-button.rounded {
+  border-radius: 100px;
+}
+
+.an-button:disabled {
+  opacity: 0.5;
+}
+
+.an-button:disabled {
+  cursor: default;
+}
+
+.an-button:active,
+.an-button:focus {
+  outline: none;
+}
+
+</style><script id="anima-load-script" src="load.js"></script><script id="anima-hotspots-script" src="hotspots.js"></script><style id="hotspots-styles">
+    .hotspot {
+      position: absolute;
+      border: 1px solid #2a9fd8;
+      background: rgba(0, 173, 255, 0.54);
+      opacity: 0;
+      z-index: -1;
+      pointer-events:none;
+    }
+  </style><script id="s_turbo" src="https://animaapp.s3.amazonaws.com/static/turbo.es2017-umd.js"></script><script id="anima-overrides-script" src="overrides.js"></script><script src="https://animaapp.s3.amazonaws.com/js/timeline.js"></script><style>
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+@font-face {
+  font-family: "SF Pro Text-Semibold";
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://anima-uploads.s3.amazonaws.com/projects/6493ccb06d8287a214c6fd2e/fonts/fontsfree-net-sfprotext-semibold.ttf') format("truetype");
+}
+/* The following line is used to measure usage of this code. You can remove it if you want. */
+@import url("https://px.animaapp.com/660fbf42c6f7f9a3f7c617e3.660fbf43c6f7f9a3f7c617e6.MktD3iR.hch.png");
+
+
+.screen textarea:focus,
+.screen input:focus {
+  outline: none;
+}
+
+.screen * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.screen div {
+  -webkit-text-size-adjust: none;
+}
+
+.component-wrapper a {
+  display: contents;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.component-wrapper * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.component-wrapper a *,
+.component-wrapper input,
+.component-wrapper video,
+.component-wrapper iframe {
+  pointer-events: auto;
+}
+
+.component-wrapper.not-ready,
+.component-wrapper.not-ready * {
+  visibility: hidden !important;
+}
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+
+.full-width-a {
+  width: 100%;
+}
+
+.full-height-a {
+  height: 100%;
+}
+
+.container-center-vertical {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  pointer-events: none;
+}
+
+.container-center-vertical > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.container-center-horizontal > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.auto-animated div {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated input {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated .container-center-vertical,
+.auto-animated .container-center-horizontal {
+  opacity: 1;
+}
+
+.overlay-base {
+  display: none;
+  height: 100%;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.overlay-base.animate-appear {
+  align-items: center;
+  animation: reveal 0.3s ease-in-out 1 normal forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+}
+
+.overlay-base.animate-disappear {
+  animation: reveal 0.3s ease-in-out 1 reverse forwards;
+  display: block;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.overlay-base.animate-disappear * {
+  pointer-events: none;
+}
+
+@keyframes reveal {
+  from { opacity: 0 }
+ to { opacity: 1 }
+}
+
+.animate-nodelay {
+  animation-delay: 0s;
+}
+
+.align-self-flex-start {
+  align-self: flex-start;
+}
+
+.align-self-flex-end {
+  align-self: flex-end;
+}
+
+.align-self-flex-center {
+  align-self: flex-center;
+}
+
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.valign-text-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+input:focus {
+  outline: none;
+}
+
+.listeners-active,
+.listeners-active * {
+  pointer-events: auto;
+}
+
+.hidden,
+.hidden * {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.smart-layers-pointers,
+.smart-layers-pointers * {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.listeners-active-click,
+.listeners-active-click * {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+:root { 
+  --black: #00000066;
+  --black-2: #000000b2;
+  --black-3: #010101;
+  --label-colorlightprimary: #000000;
+  --white: #ffffff66;
+  --white-2: #ffffff;
+  --white-3: #ffffffb2;
+ 
+  --font-size-l: 15px;
+  --font-size-m: 14px;
+  --font-size-s: 7px;
+  --font-size-xl: 17px;
+  --font-size-xxl: 30px;
+ 
+  --font-family-lantinghei_sc-heavy: "Lantinghei SC-Heavy", Helvetica;
+  --font-family-lao_mn-regular: "Lao MN-Regular", Helvetica;
+  --font-family-sf_pro_text-semibold: "SF Pro Text-Semibold", Helvetica;
+}
+.laomn-regular-normal-black-14px {
+  color: var(--black);
+  font-family: var(--font-family-lao_mn-regular);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.laomn-regular-normal-black-7px {
+  color: var(--label-colorlightprimary);
+  font-family: var(--font-family-lao_mn-regular);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.lantingheisc-heavy-normal-black-30px {
+  color: var(--label-colorlightprimary);
+  font-family: var(--font-family-lantinghei_sc-heavy);
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.laomn-regular-normal-black-15px {
+  color: var(--label-colorlightprimary);
+  font-family: var(--font-family-lao_mn-regular);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.sfprotext-normal-black-17px {
+  color: var(--black-3);
+  font-family: var(--font-family-sf_pro_text-semibold);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 400;
+}
+
+:root {
+}
+
+
+.background-decor {
+  background-color: transparent;
+  height: 844px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+/* screen - login-page */
+
+.login-page {
+  background-color: var(--white-2);
+  height: 844px;
+  overflow: hidden;
+  overflow-x: hidden;
+  position: relative;
+  width: 390px;
+}
+
+.login-page .home-indicator-fmx5hU {
+  background-color: transparent;
+  height: 34px;
+  left: 9px;
+  position: absolute;
+  top: 806px;
+  width: 375px;
+}
+
+.login-page .home-indicator-o8GBau {
+  background-color: var(--label-colorlightprimary);
+  border-radius: 100px;
+  height: 5px;
+  left: 121px;
+  position: relative;
+  top: 21px;
+  width: 134px;
+}
+
+.login-page .status-bar-i-phone-15-fmx5hU {
+  background-color: transparent;
+  height: 47px;
+  left: 0px;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+
+.login-page .notch-PMmKFK {
+  background-color: transparent;
+  height: 30px;
+  left: 113px;
+  position: absolute;
+  top: 0px;
+  width: 164px;
+}
+
+.login-page .left-side-PMmKFK {
+  background-color: transparent;
+  height: 21px;
+  left: 27px;
+  position: absolute;
+  top: 14px;
+  width: 54px;
+}
+
+.login-page .status-bar-time-1N3z7m {
+  background-color: transparent;
+  border-radius: 24px;
+  height: 21px;
+  left: 0px;
+  position: relative;
+  top: 0px;
+  width: 54px;
+}
+
+.login-page .x941-xJdTCr {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: -0.41px;
+  line-height: 22px;
+  position: absolute;
+  text-align: center;
+  top: 1px;
+  white-space: nowrap;
+  width: 54px;
+}
+
+.login-page .right-side-PMmKFK {
+  background-color: transparent;
+  height: 13px;
+  left: 286px;
+  position: absolute;
+  top: 19px;
+  width: 77px;
+}
+
+.login-page .battery-eWYM4r {
+  background-color: transparent;
+  height: 13px;
+  left: 50px;
+  position: absolute;
+  top: 0px;
+  width: 27px;
+}
+
+.login-page .wifi-eWYM4r {
+  background-color: transparent;
+  height: 12px;
+  left: 26px;
+  position: absolute;
+  top: 1px;
+  width: 17px;
+}
+
+.login-page .icon-mobile-signal-eWYM4r {
+  background-color: transparent;
+  height: 12px;
+  left: 0px;
+  position: absolute;
+  top: 1px;
+  width: 18px;
+}
+
+.login-page .videos-fmx5hU {
+  background-color: transparent;
+  height: 221px;
+  left: 25px;
+  position: absolute;
+  top: 401px;
+  width: 340px;
+}
+
+.login-page .titleslogan-fmx5hU {
+  background-color: transparent;
+  height: 108px;
+  left: 29px;
+  position: absolute;
+  top: 284px;
+  width: 330px;
+}
+
+.login-page .title-xpbonn {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 0px;
+  width: 272px;
+}
+
+.login-page .your-personal-saved-videos-vault-xpbonn {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 87px;
+  width: 326px;
+}
+
+.login-page .rectangle-2-fmx5hU {
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 28px;
+  left: 49px;
+  position: absolute;
+  top: 428px;
+  width: 292px;
+}
+
+.login-page .usernameemail-fmx5hU {
+  background-color: transparent;
+  height: auto;
+  left: 66px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 432px;
+  width: 187px;
+}
+
+.login-page .rectangle-3-fmx5hU {
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 28px;
+  left: 49px;
+  position: absolute;
+  top: 470px;
+  width: 292px;
+}
+
+.login-page .password-fmx5hU {
+  background-color: transparent;
+  height: auto;
+  left: 66px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 474px;
+  width: 187px;
+}
+
+.login-page .dont-have-an-account-sign-up-fmx5hU {
+  background-color: transparent;
+  color: transparent;
+  cursor: pointer;
+  font-family: var(--font-family-lao_mn-regular);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+  height: auto;
+  left: 127px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 579px;
+  width: 214px;
+}
+
+.login-page .span0-OiemBv {
+  font-style: normal;
+}
+
+.login-page .span1-OiemBv {
+  color: var(--label-colorlightprimary);
+  font-style: normal;
+}
+
+.login-page .search-bar-fmx5hU {
+  background-color: transparent;
+  cursor: pointer;
+  height: 36px;
+  left: 40px;
+  position: absolute;
+  top: 538px;
+  width: 305px;
+}
+
+.login-page .visible-eye-eyeball-open-view-fmx5hU {
+  background-color: transparent;
+  height: 15px;
+  left: 308px;
+  position: absolute;
+  top: 476px;
+  width: 15px;
+}
+</style><script id="anime-js-script" src="https://cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js" integrity="sha256-98Q574VkbV+PkxXCKSgL6jVq9mrVbS7uCdA+vt0sLS8=" crossorigin="anonymous"></script><script id="imgloaded-js-script" src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script><style id="action-links-styles">
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+#anima-interface{
+  transition: all 0.5s ease-in-out;
+}
+
+#anima-watermark {
+  transition: all 0.5s ease-in-out;
+  display: none;
+}
+#anima-watermark-link{
+  position: fixed;
+  bottom:20px;
+  height:30px;
+  border-radius: 1000px;
+  background: #3B3B3B;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  user-select:none;
+  transition: width 0.25s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  text-decoration:none;
+  color:#fff;
+  padding:8px 16px 8px 11px;
+  font-family:Mulish, sans-serif;
+  font-size:12px;
+}
+#anima-watermark-link .text {
+  margin-left: 6px;
+}
+
+.omniview-anima-action-links .link{
+  height: 30px;
+  width: 30px;
+  border-radius: 1000px;
+  background: #3B3B3B;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  user-select:none;
+  transition: width 0.25s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  text-decoration:none;
+  color:#fff;
+}
+.omniview-anima-action-links #comment-link .text,.omniview-anima-action-links #code-link .text{
+  display:none;
+  font-size:12px;
+  margin-right:5px;
+}
+.omniview-anima-action-links #comment-link:hover,.omniview-anima-action-links #code-link:hover{
+  width:105px;
+}
+.omniview-anima-action-links #comment-link.pop-active,.omniview-anima-action-links #code-link.pop-active{
+  width:105px;
+  background: #FF6250;
+}
+.omniview-anima-action-links #comment-link.pop-active .text,.omniview-anima-action-links #code-link.pop-active .text{
+  display:block
+}
+.omniview-anima-action-links #comment-link:hover .text,.omniview-anima-action-links #code-link:hover .text{
+  display:block;
+}
+
+.link.navigation{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  width:auto;
+  height:32px;
+  color:#fff;
+  font-size:12px;
+  cursor:default;
+  padding:0 5px;
+}
+.link.navigation .icon{
+  margin:0 6px;
+  fill:none;
+  stroke:currentColor;
+  cursor:pointer;
+}
+.link.navigation .icon.disabled{
+  opacity:0.5;
+  cursor:default;
+}
+
+
+.link.navigation .home-icon{
+  margin-left:6px;
+  fill:currentColor;
+  stroke:currentColor;
+  cursor:pointer;
+}
+
+.omniview-anima-action-links .restart{
+  height: 30px;
+  padding:0 12px;
+  background: #3B3B3B;
+  border-radius: 1000px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#f1f1f1;
+  font-size: 12px;
+}
+
+.omniview-anima-action-links{
+  display:flex;
+  align-items:center;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  font-family:Mulish, sans-serif;
+  transition: all 0.5s ease-in-out;
+  opacity:1;
+}
+
+.omniview-anima-action-links > * + *{
+   margin-right: 0;
+   margin-left: 10px;
+}
+
+.idle{
+  opacity:0;
+  pointer-events:none;
+}
+
+#popoverOpener {
+  position: absolute;
+  left: 50%;
+  margin-left: -10vw;
+  text-align: center;
+  top: 45vh;
+  width: 20vw;
+}
+
+
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: none;
+  font-family: "sans-serif";
+  font-size: 14px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.popover.top {
+  margin-top: -12px
+}
+
+.popover.right {
+  margin-left: 10px
+}
+
+.popover.bottom {
+  margin-top: 10px
+}
+
+.popover.left {
+  margin-left: -10px
+}
+
+.popover-title {
+  padding: 8px 14px;
+  margin: 0;
+  font-size: 14px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0
+}
+
+.popover-content {
+  height: 100%;
+  width: 100%;
+  display:flex;
+  overflow:hidden;
+  font-family:Mulish, sans-serif;
+}
+
+
+
+.popover>.arrow,.popover>.arrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid
+}
+
+.popover>.arrow {
+  border-width: 11px
+}
+
+.popover>.arrow:after {
+  content: "";
+  border-width: 10px
+}
+
+.popover.top>.arrow {
+  bottom: -11px;
+  left: 50%;
+  margin-left: -11px;
+  border-top-color: #999;
+  border-top-color: rgba(0,0,0,.25);
+  border-bottom-width: 0
+}
+
+.popover.top>.arrow:after {
+  bottom: 1px;
+  margin-left: -10px;
+  content: " ";
+  border-top-color: #fff;
+  border-bottom-width: 0
+}
+
+.popover.right>.arrow {
+  top: 50%;
+  left: -11px;
+  margin-top: -11px;
+  border-right-color: #999;
+  border-right-color: rgba(0,0,0,.25);
+  border-left-width: 0
+}
+
+.popover.right>.arrow:after {
+  bottom: -10px;
+  left: 1px;
+  content: " ";
+  border-right-color: #fff;
+  border-left-width: 0
+}
+
+.popover.bottom>.arrow {
+  top: -11px;
+  left: 50%;
+  margin-left: -11px;
+  border-top-width: 0;
+  border-bottom-color: #999;
+  border-bottom-color: rgba(0,0,0,.25)
+}
+
+.popover.bottom>.arrow:after {
+  top: 1px;
+  margin-left: -10px;
+  content: " ";
+  border-top-width: 0;
+  border-bottom-color: #fff
+}
+
+.popover.left>.arrow {
+  top: 50%;
+  right: -11px;
+  margin-top: -11px;
+  border-right-width: 0;
+  border-left-color: #999;
+  border-left-color: rgba(0,0,0,.25)
+}
+
+.popover.left>.arrow:after {
+  right: 1px;
+  bottom: -10px;
+  content: " ";
+  border-right-width: 0;
+  border-left-color: #fff
+}
+
+
+
+#anima-comment-popover,#anima-code-popover{
+  background:#333333;
+  color:#fff;
+}
+
+#anima-comment-popover.top>.arrow,#anima-comment-popover.top>.arrow:after,#anima-code-popover.top>.arrow:after,#anima-code-popover.top>.arrow {
+  border-top-color:#333;
+}
+
+#anima-comment-popover .btn,#anima-code-popover .btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 20px;
+  background: #FF6250;
+  color:#fff;
+  border-radius: 100px;
+  width: max-content;
+  text-decoration:none;
+}
+
+@media screen and (max-width: 550px) {
+  #anima-watermark-link {
+    padding: 6px !important;
+  }
+  #anima-watermark-link .text {
+    display: none !important;
+  }
+}
+
+</style><style>
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+@font-face {
+  font-family: "SF Pro Text-Semibold";
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://anima-uploads.s3.amazonaws.com/projects/6493ccb06d8287a214c6fd2e/fonts/fontsfree-net-sfprotext-semibold.ttf') format("truetype");
+}
+/* The following line is used to measure usage of this code. You can remove it if you want. */
+@import url("https://px.animaapp.com/660fbf42c6f7f9a3f7c617e3.660fbf43c6f7f9a3f7c617e6.MktD3iR.hch.png");
+
+
+.screen textarea:focus,
+.screen input:focus {
+  outline: none;
+}
+
+.screen * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.screen div {
+  -webkit-text-size-adjust: none;
+}
+
+.component-wrapper a {
+  display: contents;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.component-wrapper * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.component-wrapper a *,
+.component-wrapper input,
+.component-wrapper video,
+.component-wrapper iframe {
+  pointer-events: auto;
+}
+
+.component-wrapper.not-ready,
+.component-wrapper.not-ready * {
+  visibility: hidden !important;
+}
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+
+.full-width-a {
+  width: 100%;
+}
+
+.full-height-a {
+  height: 100%;
+}
+
+.container-center-vertical {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  pointer-events: none;
+}
+
+.container-center-vertical > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.container-center-horizontal > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.auto-animated div {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated input {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated .container-center-vertical,
+.auto-animated .container-center-horizontal {
+  opacity: 1;
+}
+
+.overlay-base {
+  display: none;
+  height: 100%;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.overlay-base.animate-appear {
+  align-items: center;
+  animation: reveal 0.3s ease-in-out 1 normal forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+}
+
+.overlay-base.animate-disappear {
+  animation: reveal 0.3s ease-in-out 1 reverse forwards;
+  display: block;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.overlay-base.animate-disappear * {
+  pointer-events: none;
+}
+
+@keyframes reveal {
+  from { opacity: 0 }
+ to { opacity: 1 }
+}
+
+.animate-nodelay {
+  animation-delay: 0s;
+}
+
+.align-self-flex-start {
+  align-self: flex-start;
+}
+
+.align-self-flex-end {
+  align-self: flex-end;
+}
+
+.align-self-flex-center {
+  align-self: flex-center;
+}
+
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.valign-text-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+input:focus {
+  outline: none;
+}
+
+.listeners-active,
+.listeners-active * {
+  pointer-events: auto;
+}
+
+.hidden,
+.hidden * {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.smart-layers-pointers,
+.smart-layers-pointers * {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.listeners-active-click,
+.listeners-active-click * {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+:root { 
+  --black: #00000066;
+  --black-2: #000000b2;
+  --black-3: #010101;
+  --label-colorlightprimary: #000000;
+  --white: #ffffff66;
+  --white-2: #ffffff;
+  --white-3: #ffffffb2;
+ 
+  --font-size-l: 15px;
+  --font-size-m: 14px;
+  --font-size-s: 7px;
+  --font-size-xl: 17px;
+  --font-size-xxl: 30px;
+ 
+  --font-family-lantinghei_sc-heavy: "Lantinghei SC-Heavy", Helvetica;
+  --font-family-lao_mn-regular: "Lao MN-Regular", Helvetica;
+  --font-family-sf_pro_text-semibold: "SF Pro Text-Semibold", Helvetica;
+}
+.laomn-regular-normal-black-14px {
+  color: var(--black);
+  font-family: var(--font-family-lao_mn-regular);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.laomn-regular-normal-black-7px {
+  color: var(--label-colorlightprimary);
+  font-family: var(--font-family-lao_mn-regular);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.lantingheisc-heavy-normal-black-30px {
+  color: var(--label-colorlightprimary);
+  font-family: var(--font-family-lantinghei_sc-heavy);
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.laomn-regular-normal-black-15px {
+  color: var(--label-colorlightprimary);
+  font-family: var(--font-family-lao_mn-regular);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.sfprotext-normal-black-17px {
+  color: var(--black-3);
+  font-family: var(--font-family-sf_pro_text-semibold);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 400;
+}
+
+:root {
+}
+
+
+.background-decor {
+  background-color: transparent;
+  height: 844px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+/* screen - signup-page */
+
+.signup-page {
+  background-color: var(--white-2);
+  height: 844px;
+  overflow: hidden;
+  overflow-x: hidden;
+  position: relative;
+  width: 390px;
+}
+
+.signup-page .home-indicator-8Nxxpp {
+  background-color: transparent;
+  height: 34px;
+  left: 9px;
+  position: absolute;
+  top: 806px;
+  width: 375px;
+}
+
+.signup-page .home-indicator-pj5xva {
+  background-color: var(--label-colorlightprimary);
+  border-radius: 100px;
+  height: 5px;
+  left: 121px;
+  position: relative;
+  top: 21px;
+  width: 134px;
+}
+
+.signup-page .status-bar-i-phone-15-8Nxxpp {
+  background-color: transparent;
+  height: 47px;
+  left: 0px;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+
+.signup-page .notch-en6txR {
+  background-color: transparent;
+  height: 30px;
+  left: 113px;
+  position: absolute;
+  top: 0px;
+  width: 164px;
+}
+
+.signup-page .left-side-en6txR {
+  background-color: transparent;
+  height: 21px;
+  left: 27px;
+  position: absolute;
+  top: 14px;
+  width: 54px;
+}
+
+.signup-page .status-bar-time-Bhbchl {
+  background-color: transparent;
+  border-radius: 24px;
+  height: 21px;
+  left: 0px;
+  position: relative;
+  top: 0px;
+  width: 54px;
+}
+
+.signup-page .x941-CwhxK8 {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: -0.41px;
+  line-height: 22px;
+  position: absolute;
+  text-align: center;
+  top: 1px;
+  white-space: nowrap;
+  width: 54px;
+}
+
+.signup-page .right-side-en6txR {
+  background-color: transparent;
+  height: 13px;
+  left: 286px;
+  position: absolute;
+  top: 19px;
+  width: 77px;
+}
+
+.signup-page .battery-VhxiaD {
+  background-color: transparent;
+  height: 13px;
+  left: 50px;
+  position: absolute;
+  top: 0px;
+  width: 27px;
+}
+
+.signup-page .wifi-VhxiaD {
+  background-color: transparent;
+  height: 12px;
+  left: 26px;
+  position: absolute;
+  top: 1px;
+  width: 17px;
+}
+
+.signup-page .icon-mobile-signal-VhxiaD {
+  background-color: transparent;
+  height: 12px;
+  left: 0px;
+  position: absolute;
+  top: 1px;
+  width: 18px;
+}
+
+.signup-page .videos-8Nxxpp {
+  background-color: transparent;
+  height: 306px;
+  left: 27px;
+  position: absolute;
+  top: 340px;
+  width: 340px;
+}
+
+.signup-page .titleslogan-8Nxxpp {
+  background-color: transparent;
+  height: 108px;
+  left: 31px;
+  position: absolute;
+  top: 219px;
+  width: 330px;
+}
+
+.signup-page .sign-up-for-savior-9SNALe {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 0px;
+  width: 272px;
+}
+
+.signup-page .your-personal-saved-videos-vault-9SNALe {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 87px;
+  width: 326px;
+}
+
+.signup-page .rectangle-2-8Nxxpp {
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 28px;
+  left: 51px;
+  position: absolute;
+  top: 363px;
+  width: 292px;
+}
+
+.signup-page .create-username-8Nxxpp {
+  background-color: transparent;
+  height: auto;
+  left: 68px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 367px;
+  width: 187px;
+}
+
+.signup-page .rectangle-6-8Nxxpp {
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 28px;
+  left: 51px;
+  position: absolute;
+  top: 403px;
+  width: 292px;
+}
+
+.signup-page .email-8Nxxpp {
+  background-color: transparent;
+  height: auto;
+  left: 68px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 407px;
+  width: 187px;
+}
+
+.signup-page .search-bar-8Nxxpp {
+  background-color: transparent;
+  cursor: pointer;
+  height: 36px;
+  left: 42px;
+  position: absolute;
+  top: 582px;
+  width: 305px;
+}
+
+.signup-page .rectangle-4-8Nxxpp {
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 28px;
+  left: 51px;
+  position: absolute;
+  top: 472px;
+  width: 292px;
+}
+
+.signup-page .password-8Nxxpp {
+  background-color: transparent;
+  height: auto;
+  left: 68px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 477px;
+  width: 187px;
+}
+
+.signup-page .visible-eye-eyeball-open-view-8Nxxpp {
+  top: 478px;
+}
+
+.signup-page .rectangle-5-8Nxxpp {
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 28px;
+  left: 51px;
+  position: absolute;
+  top: 513px;
+  width: 292px;
+}
+
+.signup-page .confirm-password-8Nxxpp {
+  background-color: transparent;
+  height: auto;
+  left: 68px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 517px;
+  width: 187px;
+}
+
+.signup-page .visible-eye-eyeball-open-view-bG3jaD {
+  top: 518px;
+}
+
+.signup-page .visible-eye-eyeball-open-view {
+  background-color: transparent;
+  height: 15px;
+  left: 310px;
+  position: absolute;
+  width: 15px;
+}
+</style><style>
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+@font-face {
+  font-family: "SF Pro Text-Semibold";
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://anima-uploads.s3.amazonaws.com/projects/6493ccb06d8287a214c6fd2e/fonts/fontsfree-net-sfprotext-semibold.ttf') format("truetype");
+}
+/* The following line is used to measure usage of this code. You can remove it if you want. */
+@import url("https://px.animaapp.com/660fbf42c6f7f9a3f7c617e3.660fbf43c6f7f9a3f7c617e6.MktD3iR.hch.png");
+
+
+.screen textarea:focus,
+.screen input:focus {
+  outline: none;
+}
+
+.screen * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.screen div {
+  -webkit-text-size-adjust: none;
+}
+
+.component-wrapper a {
+  display: contents;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.component-wrapper * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.component-wrapper a *,
+.component-wrapper input,
+.component-wrapper video,
+.component-wrapper iframe {
+  pointer-events: auto;
+}
+
+.component-wrapper.not-ready,
+.component-wrapper.not-ready * {
+  visibility: hidden !important;
+}
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+
+.full-width-a {
+  width: 100%;
+}
+
+.full-height-a {
+  height: 100%;
+}
+
+.container-center-vertical {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  pointer-events: none;
+}
+
+.container-center-vertical > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.container-center-horizontal > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.auto-animated div {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated input {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated .container-center-vertical,
+.auto-animated .container-center-horizontal {
+  opacity: 1;
+}
+
+.overlay-base {
+  display: none;
+  height: 100%;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.overlay-base.animate-appear {
+  align-items: center;
+  animation: reveal 0.3s ease-in-out 1 normal forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+}
+
+.overlay-base.animate-disappear {
+  animation: reveal 0.3s ease-in-out 1 reverse forwards;
+  display: block;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.overlay-base.animate-disappear * {
+  pointer-events: none;
+}
+
+@keyframes reveal {
+  from { opacity: 0 }
+ to { opacity: 1 }
+}
+
+.animate-nodelay {
+  animation-delay: 0s;
+}
+
+.align-self-flex-start {
+  align-self: flex-start;
+}
+
+.align-self-flex-end {
+  align-self: flex-end;
+}
+
+.align-self-flex-center {
+  align-self: flex-center;
+}
+
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.valign-text-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+input:focus {
+  outline: none;
+}
+
+.listeners-active,
+.listeners-active * {
+  pointer-events: auto;
+}
+
+.hidden,
+.hidden * {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.smart-layers-pointers,
+.smart-layers-pointers * {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.listeners-active-click,
+.listeners-active-click * {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+:root { 
+  --black: #00000066;
+  --black-2: #000000b2;
+  --black-3: #010101;
+  --label-colorlightprimary: #000000;
+  --white: #ffffff66;
+  --white-2: #ffffff;
+  --white-3: #ffffffb2;
+ 
+  --font-size-l: 15px;
+  --font-size-m: 14px;
+  --font-size-s: 7px;
+  --font-size-xl: 17px;
+  --font-size-xxl: 30px;
+ 
+  --font-family-lantinghei_sc-heavy: "Lantinghei SC-Heavy", Helvetica;
+  --font-family-lao_mn-regular: "Lao MN-Regular", Helvetica;
+  --font-family-sf_pro_text-semibold: "SF Pro Text-Semibold", Helvetica;
+}
+.laomn-regular-normal-black-14px {
+  color: var(--black);
+  font-family: var(--font-family-lao_mn-regular);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.laomn-regular-normal-black-7px {
+  color: var(--label-colorlightprimary);
+  font-family: var(--font-family-lao_mn-regular);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.lantingheisc-heavy-normal-black-30px {
+  color: var(--label-colorlightprimary);
+  font-family: var(--font-family-lantinghei_sc-heavy);
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.laomn-regular-normal-black-15px {
+  color: var(--label-colorlightprimary);
+  font-family: var(--font-family-lao_mn-regular);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.sfprotext-normal-black-17px {
+  color: var(--black-3);
+  font-family: var(--font-family-sf_pro_text-semibold);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 400;
+}
+
+:root {
+}
+
+
+.background-decor {
+  background-color: transparent;
+  height: 844px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+/* screen - home-page */
+
+.home-page {
+  background-color: var(--white-2);
+  height: 844px;
+  left: 0px;
+  overflow: hidden;
+  position: relative;
+  top: 0px;
+  width: 390px;
+}
+
+.home-page .videos-xVxyAW {
+  left: 30px;
+  top: 205px;
+}
+
+.home-page .bottom-bar-xVxyAW {
+  background-color: transparent;
+  height: 70px;
+  left: 0px;
+  position: absolute;
+  top: 774px;
+  width: 390px;
+}
+
+.home-page .rectangle-7-ze1swV {
+  background-color: var(--white);
+  height: 70px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+
+.home-page .outline-home-1-ze1swV {
+  top: 14px;
+}
+
+.home-page .icon-magnifyingglass-ze1swV {
+  background-color: transparent;
+  cursor: pointer;
+  height: 18px;
+  left: 109px;
+  position: absolute;
+  top: 16px;
+  width: 18px;
+}
+
+.home-page .user-profile-focus-c-ze1swV {
+  background-color: transparent;
+  cursor: pointer;
+  height: 20px;
+  left: 336px;
+  position: absolute;
+  top: 15px;
+  width: 17px;
+}
+
+.home-page .chat-bubble-typing-o-ze1swV {
+  background-color: transparent;
+  cursor: pointer;
+  height: 20px;
+  left: 264px;
+  position: absolute;
+  top: 14px;
+  width: 21px;
+}
+
+.home-page .home-indicator-xVxyAW {
+  background-color: transparent;
+  height: 34px;
+  left: 9px;
+  position: absolute;
+  top: 806px;
+  width: 375px;
+}
+
+.home-page .home-indicator-rVdTY9 {
+  background-color: var(--label-colorlightprimary);
+  border-radius: 100px;
+  height: 5px;
+  left: 121px;
+  position: relative;
+  top: 21px;
+  width: 134px;
+}
+
+.home-page .rectangle-8-xVxyAW {
+  background-color: var(--white-3);
+  border-radius: 0px 0px 20px 20px;
+  height: 50px;
+  left: 34px;
+  opacity: 0.8;
+  position: absolute;
+  top: 420px;
+  width: 150px;
+}
+
+.home-page .rectangle-9-xVxyAW {
+  background-color: transparent;
+  border: 0.5px solid;
+  border-color: var(--black-2);
+  border-radius: 5px;
+  height: 23px;
+  left: 53px;
+  position: absolute;
+  top: 432px;
+  width: 23px;
+}
+
+.home-page .summary-xVxyAW {
+  left: 82px;
+  top: 430px;
+}
+
+.home-page .rectangle-15-xVxyAW {
+  background-color: transparent;
+  border: 0.5px solid;
+  border-color: var(--black-2);
+  border-radius: 5px;
+  height: 23px;
+  left: 53px;
+  position: absolute;
+  top: 432px;
+  width: 23px;
+}
+
+.home-page .videos-6iAz2g {
+  left: 201px;
+  top: 205px;
+}
+
+.home-page .rectangle-23-xVxyAW {
+  background-color: var(--white-3);
+  border-radius: 0px 0px 20px 20px;
+  height: 50px;
+  left: 205px;
+  opacity: 0.8;
+  position: absolute;
+  top: 420px;
+  width: 150px;
+}
+
+.home-page .rectangle-24-xVxyAW {
+  background-color: transparent;
+  border: 0.5px solid;
+  border-color: var(--black-2);
+  border-radius: 5px;
+  height: 23px;
+  left: 224px;
+  position: absolute;
+  top: 432px;
+  width: 23px;
+}
+
+.home-page .summary-6iAz2g {
+  left: 253px;
+  top: 430px;
+}
+
+.home-page .videos-W6w6Ty {
+  left: 30px;
+  top: 485px;
+}
+
+.home-page .rectangle-25-xVxyAW {
+  background-color: var(--white-3);
+  border-radius: 0px 0px 20px 20px;
+  height: 50px;
+  left: 34px;
+  opacity: 0.8;
+  position: absolute;
+  top: 700px;
+  width: 150px;
+}
+
+.home-page .rectangle-26-xVxyAW {
+  background-color: transparent;
+  border: 0.5px solid;
+  border-color: var(--black-2);
+  border-radius: 5px;
+  height: 23px;
+  left: 53px;
+  position: absolute;
+  top: 712px;
+  width: 23px;
+}
+
+.home-page .summary-W6w6Ty {
+  left: 82px;
+  top: 710px;
+}
+
+.home-page .rectangle-21-xVxyAW {
+  background-color: transparent;
+  height: 31px;
+  left: 21px;
+  position: absolute;
+  top: 785px;
+  width: 57px;
+}
+
+.home-page .home-indicator-6iAz2g {
+  background-color: transparent;
+  height: 34px;
+  left: 9px;
+  position: absolute;
+  top: 806px;
+  width: 375px;
+}
+
+.home-page .home-indicator-XYW5nm {
+  background-color: var(--label-colorlightprimary);
+  border-radius: 100px;
+  height: 5px;
+  left: 121px;
+  position: relative;
+  top: 21px;
+  width: 134px;
+}
+
+.home-page .rectangle-22-xVxyAW {
+  background-color: transparent;
+  height: 31px;
+  left: 21px;
+  position: absolute;
+  top: 785px;
+  width: 57px;
+}
+
+.home-page .outline-home-1-xVxyAW {
+  top: 788px;
+}
+
+.home-page .vector-xVxyAW {
+  background-color: transparent;
+  cursor: pointer;
+  height: 21px;
+  left: 184px;
+  position: absolute;
+  top: 789px;
+  width: 21px;
+}
+
+.home-page .vector-43-Wxwq87 {
+  background-color: transparent;
+  height: 23px;
+  left: -1px;
+  position: absolute;
+  top: -1px;
+  width: 23px;
+}
+
+.home-page .vector-44-Wxwq87 {
+  background-color: transparent;
+  height: 9px;
+  left: 6px;
+  position: absolute;
+  top: 6px;
+  width: 9px;
+}
+
+.home-page .titleslogan-xVxyAW {
+  background-color: transparent;
+  height: 62px;
+  left: 32px;
+  position: absolute;
+  top: 53px;
+  width: 330px;
+}
+
+.home-page .title-5HVrPo {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 0px;
+  width: 179px;
+}
+
+.home-page .your-personal-saved-videos-vault-5HVrPo {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 41px;
+  width: 326px;
+}
+
+.home-page .search-bar-xVxyAW {
+  background-color: transparent;
+  height: 36px;
+  left: 25px;
+  position: absolute;
+  top: 124px;
+  width: 337px;
+}
+
+.home-page .categories-xVxyAW {
+  background-color: transparent;
+  height: 36px;
+  left: 25px;
+  position: absolute;
+  top: 164px;
+  width: 337px;
+}
+
+.home-page .status-bar-i-phone-15-xVxyAW {
+  background-color: transparent;
+  height: 47px;
+  left: 0px;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+
+.home-page .notch-PMALix {
+  background-color: transparent;
+  height: 30px;
+  left: 113px;
+  position: absolute;
+  top: 0px;
+  width: 164px;
+}
+
+.home-page .left-side-PMALix {
+  background-color: transparent;
+  height: 21px;
+  left: 27px;
+  position: absolute;
+  top: 14px;
+  width: 54px;
+}
+
+.home-page .status-bar-time-S83Lpn {
+  background-color: transparent;
+  border-radius: 24px;
+  height: 21px;
+  left: 0px;
+  position: relative;
+  top: 0px;
+  width: 54px;
+}
+
+.home-page .x941-Vd1Wpv {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: -0.41px;
+  line-height: 22px;
+  position: absolute;
+  text-align: center;
+  top: 1px;
+  white-space: nowrap;
+  width: 54px;
+}
+
+.home-page .right-side-PMALix {
+  background-color: transparent;
+  height: 13px;
+  left: 286px;
+  position: absolute;
+  top: 19px;
+  width: 77px;
+}
+
+.home-page .battery-wyqbex {
+  background-color: transparent;
+  height: 13px;
+  left: 50px;
+  position: absolute;
+  top: 0px;
+  width: 27px;
+}
+
+.home-page .wifi-wyqbex {
+  background-color: transparent;
+  height: 12px;
+  left: 26px;
+  position: absolute;
+  top: 1px;
+  width: 17px;
+}
+
+.home-page .icon-mobile-signal-wyqbex {
+  background-color: transparent;
+  height: 12px;
+  left: 0px;
+  position: absolute;
+  top: 1px;
+  width: 18px;
+}
+
+.home-page .vector-9-xVxyAW {
+  background-color: transparent;
+  height: 13px;
+  left: 341px;
+  position: absolute;
+  top: 172px;
+  width: 7px;
+}
+
+.home-page .outline-home-1 {
+  background-color: transparent;
+  height: 24px;
+  left: 37px;
+  position: absolute;
+  width: 24px;
+}
+
+.home-page .summary {
+  background-color: transparent;
+  height: auto;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  width: auto;
+}
+
+.home-page .videos {
+  background-color: transparent;
+  cursor: pointer;
+  height: 273px;
+  position: absolute;
+  width: 158px;
+}
+</style><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png"><meta name="og:type" content="website"><meta name="twitter:card" content="photo"></head><body style="margin: 0;background: #ffffff;"><input type="hidden" id="anPageName" name="page" value="home-page"><div class="container-center-horizontal"><div class="home-page screen " data-id="130:307" style="margin-top: 70px;"><img class="background-decor" data-id="9:113" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/background-decor.png" alt="Background decor"><img class="background-decor" data-id="6:1240" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/background-decor.png" alt="Background decor"><img class="videos-xVxyAW videos" data-id="9:114" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/videos@2x.png" alt="Videos"><div class="bottom-bar-xVxyAW" data-id="10:144"><div class="rectangle-7-ze1swV" data-id="6:614"></div><img class="outline-home-1-ze1swV outline-home-1" data-id="6:623" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/outline---home-1.svg" alt="outline / home-1"><img class="icon-magnifyingglass-ze1swV" data-id="6:625" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/icon---magnifyingglass.svg" alt="Icon / magnifyingglass"><img class="user-profile-focus-c-ze1swV" data-id="6:740" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/user-profile-focus--close-geometric-human-person-profile-focus-u.svg" alt="user-profile-focus--close-geometric-human-person-profile-focus-user"><img class="chat-bubble-typing-o-ze1swV" data-id="6:748" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/chat-bubble-typing-oval--messages-message-bubble-typing-chat.svg" alt="chat-bubble-typing-oval--messages-message-bubble-typing-chat"></div><div class="home-indicator-xVxyAW" data-id="6:817"><div class="home-indicator-rVdTY9" data-id="I6:817;5:3093"></div></div><div class="rectangle-8-xVxyAW" data-id="6:819"></div><div class="rectangle-9-xVxyAW" data-id="6:823"></div><div class="summary-xVxyAW summary laomn-regular-normal-black-7px" data-id="6:824">Summary...</div><div class="rectangle-15-xVxyAW" data-id="6:845"></div><img class="videos-6iAz2g videos" data-id="6:1509" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/videos@2x.png" alt="Videos"><div class="rectangle-23-xVxyAW" data-id="6:1511"></div><div class="rectangle-24-xVxyAW" data-id="6:1512"></div><div class="summary-6iAz2g summary laomn-regular-normal-black-7px" data-id="6:1513">Summary...</div><img class="videos-W6w6Ty videos" data-id="6:1514" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/videos@2x.png" alt="Videos"><div class="rectangle-25-xVxyAW" data-id="6:1516"></div><div class="rectangle-26-xVxyAW" data-id="6:1517"></div><div class="summary-W6w6Ty summary laomn-regular-normal-black-7px" data-id="6:1518">Summary...</div><img class="rectangle-21-xVxyAW" data-id="6:878" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/rectangle-21.svg" alt="Rectangle 21"><div class="home-indicator-6iAz2g" data-id="6:1264"><div class="home-indicator-XYW5nm" data-id="I6:1264;5:3093"></div></div><img class="rectangle-22-xVxyAW" data-id="6:1265" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/rectangle-21.svg" alt="Rectangle 22"><img class="outline-home-1-xVxyAW outline-home-1" data-id="47:1234" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/outline---home-1.svg" alt="outline / home-1"><div class="vector-xVxyAW" data-id="60:650"><img class="vector-43-Wxwq87" data-id="60:651" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/vector-43.svg" alt="Vector-43"><img class="vector-44-Wxwq87" data-id="60:652" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/vector-44.svg" alt="Vector-44"></div><div class="titleslogan-xVxyAW" data-id="83:686"><h1 class="title-5HVrPo lantingheisc-heavy-normal-black-30px" data-id="83:687">SAVIOR</h1><p class="your-personal-saved-videos-vault-5HVrPo laomn-regular-normal-black-15px" data-id="83:688">Your personal saved videos vault.</p></div><img class="search-bar-xVxyAW" data-id="83:689" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/search-bar.png" alt="Search bar"><img class="categories-xVxyAW" data-id="83:693" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/categories@2x.png" alt="Categories"><div class="status-bar-i-phone-15-xVxyAW" data-id="83:703"><img class="notch-PMALix" data-id="I83:703;839:7137" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/notch@2x.png" alt="Notch"><div class="left-side-PMALix" data-id="I83:703;839:7139"><div class="status-bar-time-S83Lpn" data-id="I83:703;839:7140"><div class="x941-Vd1Wpv sfprotext-normal-black-17px" data-id="I83:703;839:7140;839:7100">9:41</div></div></div><div class="right-side-PMALix" data-id="I83:703;839:7141"><img class="battery-wyqbex" data-id="I83:703;839:7142" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/battery@2x.png" alt="Battery"><img class="wifi-wyqbex" data-id="I83:703;839:7146" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/wifi.svg" alt="Wifi"><img class="icon-mobile-signal-wyqbex" data-id="I83:703;839:7150" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/icon---mobile-signal.svg" alt="Icon / Mobile Signal"></div></div><img class="vector-9-xVxyAW" data-id="83:704" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/vector-9.svg" alt="Vector 9"></div></div><script src="launchpad-js/launchpad-banner.js" async=""></script><script defer="" src="https://animaapp.s3.amazonaws.com/static/restart-btn.min.js"></script><div id="anima-interface" data-turbo-permanent="true" class="idle"><!---->
+        <div id="anima-comment-popover" class="popover top" role="tooltip" style="left: -205px; top: -220px;">
+          <div class="arrow" style="margin-left: 128px;"></div>
+          <div class="popover-content" style="align-items:center">
+            <div style="display:flex;flex-direction:column;height: 100%;padding: 20px;">
+              <h3 style="font-size:18px;margin-bottom:10px;font-weight:500;line-height: 26px;font-family: Roslindale;">
+                Leave feedback and collaborate
+              </h3>
+              <p style="font-size:12px;margin-bottom:20px;font-weight:400;line-height: 20px;">
+                Login to your account to leave comments. Don't have an account?
+                Sign up for free!
+              </p>
+              <a target="_blank" rel="noopener noreferrer" class="btn" href="https://projects.animaapp.com/p/undefined/s/home-page?mode=comments&amp;utm_campaign=add-comment&amp;utm_medium=add-comment&amp;utm_source=animaapp.io">Add comment</a>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:center;padding-right:20px">
+              <img src="https://animaapp.s3.amazonaws.com/static/comment-illustration.svg">
+            </div>
+          </div>
+        </div>
+        <div id="anima-code-popover" class="popover top" role="tooltip" style="left: -205px; top: -220px;">
+          <div class="arrow" style="margin-left: 168px;"></div>
+          <div class="popover-content" style="align-items:center">
+            <div style="display:flex;flex-direction:column;height: 100%;padding: 20px;">
+              <h3 style="font-size:18px;margin-bottom:10px;font-weight:500;line-height: 26px;font-family: Roslindale;">
+                Get clean code you’ll love with Anima
+              </h3>
+              <p style="font-size:12px;margin-bottom:20px;font-weight:400;line-height: 20px;">
+                Login and easily export HTML, React or Vue of this prototype.
+                Don’t have an account? Sign up for free!
+              </p>
+              <a target="_blank" rel="noopener noreferrer" class="btn" href="https://projects.animaapp.com/p/undefined/s/home-page?mode=code&amp;utm_campaign=get-code&amp;utm_medium=get-code&amp;utm_source=animaapp.io">
+                Get code
+              </a>
+            </div>
+
+            <img src="https://animaapp.s3.amazonaws.com/static/code-illustration.svg">
+          </div>
+        </div>
+        <div class="omniview-anima-action-links" id="actions-wrap">
+          <div class="omniview-anima-action-links">
+            <div id="page-nav" class="link navigation" style="display: none;">
+              <svg id="homepage-icon" class="home-icon" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.151 11a.25.25 0 01-.167-.436l4.349-3.913a.25.25 0 01.334 0l4.349 3.913a.25.25 0 01-.167.436H8.15zM16 12H9v4a1 1 0 001 1h5a1 1 0 001-1v-4z" fill="#fff"></path>
+              </svg>
+
+              <svg class="icon" id="arrow-left" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18l-6-6 6-6" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+
+              <span id="page-num"></span>
+
+              <svg class="icon" id="arrow-right" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+
+            <a class="link" id="comment-link" target="_blank" style="display: none;">
+              <span class="text">Comment</span>
+              <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.301 15.137a.551.551 0 01.199-.55c.314-.23.554-.554.718-.965A6.015 6.015 0 014 10 6.006 6.006 0   0110.001 4 6.006 6.006 0 0116 10.001 6.006 6.006 0 019.999 16a5.98 5.98 0 01-3.095-.86 3.165 3.165 0 01-1.65.438 3.6  3.6 0 01-.57-.044c-.191-.03-.34-.186-.383-.397z" fill="#fff"></path>
+              </svg>
+            </a>
+
+            <a class="link" id="code-link" target="_blank" style="display: none;">
+              <span class="text">Get Code</span>
+              <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 15.667a1 1 0 01-.707-1.708l3.626-3.625-3.626-3.626a1 1 0 111.415-1.415l4.333 4.333a1 1 0 010 1.414l-4.333 4.333a.993.993 0 01-.707.294zM7.333 5a1 1 0 01.707 1.708l-3.626 3.625 3.627 3.626a1 1 0 11-1.415 1.415L2.293 11.04a1 1 0 010-1.415l4.333-4.333A.992.992 0 017.333 5z" fill="#fff"></path>
+              </svg>
+            </a>
+
+            <div class="restart" id="restart-btn" style="display: none;">
+              <svg style="margin-right: 6px" width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 11.817A5.017 5.017 0 01.994 6.811c0-.207.169-.375.375-.375s.375.168.375.375A4.265 4.265 0 006 11.067a4.265 4.265 0 004.256-4.256A4.265 4.265 0 006 2.555a.376.376 0 01-.375-.376c0-.206.169-.374.375-.374a5.017 5.017 0 015.006 5.006A5.017 5.017 0 016 11.817z" fill="#fff"></path>
+                <path d="M6.75 4.237a.37.37 0 01-.263-.112l-1.65-1.65a.363.363 0 010-.525L6.487.3c.15-.15.375-.15.525 0 .15.15.15.375 0 .525L5.625 2.212 7.012 3.6c.15.15.15.375 0 .525-.056.075-.15.112-.262.112z" fill="#fff"></path>
+              </svg>
+              Restart
+            </div>
+          </div>
+        </div>
+      <!----></div><div id="anima-watermark" style="display: none;" class="idle"><!----><a id="anima-watermark-link" target="_blank" href="https://www.animaapp.com?utm_campaign=public-link-banner&amp;utm_medium=public-link-banner&amp;utm_source=animaapp.io" style="right: 20px; left: auto; padding: 6px;">
+        <svg width="20" height="20" viewBox="0 0 20 20" id="anima-logo-icon" fill="none" xmlns="http://www.w3.org/2000/svg" data-hotspot-id="hp-0">
+          <path d="M4.09293 3.00001H16.5327C16.5484 2.99976 16.5638 3.00351 16.5776 3.01092C16.5913 3.01832 16.603 3.02913 16.6114 3.04231C16.6198 3.0555 16.6247 3.07061 16.6256 3.08622C16.6265 3.10182 16.6233 3.1174 16.6165 3.13146C15.5441 5.29706 13.9276 7.14699 11.9253 8.50009C8.69117 10.6822 5.43436 10.9075 4.09389 10.9196C4.08165 10.9198 4.06949 10.9176 4.05811 10.9131C4.04672 10.9086 4.03636 10.9019 4.02761 10.8933C4.01887 10.8848 4.01192 10.8745 4.00718 10.8633C4.00244 10.852 4 10.8399 4 10.8276V3.09198C4 3.07982 4.00241 3.06778 4.00709 3.05656C4.01177 3.04534 4.01863 3.03516 4.02728 3.02661C4.03592 3.01805 4.04617 3.0113 4.05744 3.00673C4.06871 3.00217 4.08077 2.99988 4.09293 3.00001Z" fill="#FF6250"></path>
+          <path d="M6.77772 17.4446C8.31182 17.4446 9.55545 16.201 9.55545 14.6669C9.55545 13.1328 8.31182 11.8892 6.77772 11.8892C5.24363 11.8892 4 13.1328 4 14.6669C4 16.201 5.24363 17.4446 6.77772 17.4446Z" fill="#FFDF90"></path>
+          <path d="M12.4559 17.2799C11.6701 16.9799 11.2522 16.1151 11.5185 15.3496L13.6153 9.3656C13.884 8.60003 14.7387 8.22302 15.5245 8.52299C16.3103 8.82344 16.7282 9.68772 16.4619 10.4538L14.365 16.4377C14.0964 17.2033 13.2417 17.5808 12.4559 17.2799Z" fill="#3366FF"></path>
+        </svg>
+        <span class="text" style="display: none;">Made with Anima</span>
+      </a><!----></div><div id="anima-free-website-banner"><!---->
+    
+  <!----></div><div id="hotspots_wrapper"><div class="hotspot" id="hp-0" style="top: 0px; left: 0px; opacity: 0; z-index: -1;"></div></div><div id="t_preload_links"></div></body></html>
