@@ -1,0 +1,626 @@
+<html><head><style type="text/css"> {
+}
+</style><style id="st_globalStyles">
+
+.screen textarea:focus,
+.screen input:focus {
+  outline: none;
+}
+.screen * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.screen div {
+  -webkit-text-size-adjust: none;
+}
+
+.component-wrapper a {
+  display: contents;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.component-wrapper * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.component-wrapper a *,
+.component-wrapper input,
+.component-wrapper video,
+.component-wrapper iframe {
+  pointer-events: auto;
+}
+
+.component-wrapper.not-ready,
+.component-wrapper.not-ready * {
+  visibility: hidden !important;
+}
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+
+.full-width-a {
+  width: 100%;
+}
+
+.full-height-a {
+  height: 100%;
+}
+
+.container-center-vertical {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  pointer-events: none;
+}
+
+.container-center-vertical > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.container-center-horizontal > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.auto-animated .container-center-vertical,
+.auto-animated .container-center-horizontal {
+  opacity: 1;
+}
+
+.overlay-base {
+  display: none;
+  height: 100%;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.overlay-base.animate-appear {
+  align-items: center;
+  animation: reveal 0.3s ease-in-out 1 normal forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+}
+
+.overlay-base.animate-disappear {
+  animation: reveal 0.3s ease-in-out 1 reverse forwards;
+  display: block;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.overlay-base.animate-disappear * {
+  pointer-events: none;
+}
+
+.align-self-flex-start {
+  align-self: flex-start;
+}
+
+.align-self-flex-end {
+  align-self: flex-end;
+}
+
+.align-self-flex-center {
+  align-self: flex-center;
+}
+
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.valign-text-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+input:focus {
+  outline: none;
+}
+
+.listeners-active,
+.listeners-active * {
+  pointer-events: auto;
+}
+
+.hidden,
+.hidden * {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.smart-layers-pointers,
+.smart-layers-pointers * {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.listeners-active-click,
+.listeners-active-click * {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+:root { 
+  --black: #00000066;
+  --black-2: #000000b2;
+  --black-3: #010101;
+  --label-colorlightprimary: #000000;
+  --white: #ffffff66;
+  --white-2: #ffffff;
+  --white-3: #ffffffb2;
+ 
+  --font-size-l: 15px;
+  --font-size-m: 14px;
+  --font-size-s: 7px;
+  --font-size-xl: 17px;
+  --font-size-xxl: 30px;
+}
+.background-decor {
+  background-color: transparent;
+  height: 844px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+
+</style><script id="anime-js-script" src="https://cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js" integrity="sha256-98Q574VkbV+PkxXCKSgL6jVq9mrVbS7uCdA+vt0sLS8=" crossorigin="anonymous"></script><script id="imgloaded-js-script" src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script><style>
+
+.screen textarea:focus,
+.screen input:focus {
+  outline: none;
+}
+
+.screen * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.screen div {
+  -webkit-text-size-adjust: none;
+}
+
+.component-wrapper a {
+  display: contents;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.component-wrapper * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.component-wrapper a *,
+.component-wrapper input,
+.component-wrapper video,
+.component-wrapper iframe {
+  pointer-events: auto;
+}
+
+.component-wrapper.not-ready,
+.component-wrapper.not-ready * {
+  visibility: hidden !important;
+}
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+
+.full-width-a {
+  width: 100%;
+}
+
+.full-height-a {
+  height: 100%;
+}
+
+.container-center-vertical {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  pointer-events: none;
+}
+
+.container-center-vertical > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.container-center-horizontal > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.align-self-flex-start {
+  align-self: flex-start;
+}
+
+.align-self-flex-end {
+  align-self: flex-end;
+}
+
+.align-self-flex-center {
+  align-self: flex-center;
+}
+
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.valign-text-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+input:focus {
+  outline: none;
+}
+
+.listeners-active,
+.listeners-active * {
+  pointer-events: auto;
+}
+
+.hidden,
+.hidden * {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.smart-layers-pointers,
+.smart-layers-pointers * {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.listeners-active-click,
+.listeners-active-click * {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+:root { 
+  --black: #00000066;
+  --black-2: #000000b2;
+  --black-3: #010101;
+  --label-colorlightprimary: #000000;
+  --white: #ffffff66;
+  --white-2: #ffffff;
+  --white-3: #ffffffb2;
+ 
+  --font-size-l: 15px;
+  --font-size-m: 14px;
+  --font-size-s: 7px;
+  --font-size-xl: 17px;
+  --font-size-xxl: 30px;
+}
+:root {
+}
+.background-decor {
+  background-color: transparent;
+  height: 844px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+/* screen - signup-page */
+.signup-page {
+  background-color: var(--white-2);
+  height: 844px;
+  overflow: hidden;
+  overflow-x: hidden;
+  position: relative;
+  width: 390px;
+}
+
+.signup-page .home-indicator-8Nxxpp {
+  background-color: transparent;
+  height: 34px;
+  left: 9px;
+  position: absolute;
+  top: 806px;
+  width: 375px;
+}
+
+.signup-page .home-indicator-pj5xva {
+  background-color: var(--label-colorlightprimary);
+  border-radius: 100px;
+  height: 5px;
+  left: 121px;
+  position: relative;
+  top: 21px;
+  width: 134px;
+}
+
+.signup-page .status-bar-i-phone-15-8Nxxpp {
+  background-color: transparent;
+  height: 47px;
+  left: 0px;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  width: 390px;
+}
+
+.signup-page .notch-en6txR {
+  background-color: transparent;
+  height: 30px;
+  left: 113px;
+  position: absolute;
+  top: 0px;
+  width: 164px;
+}
+
+.signup-page .left-side-en6txR {
+  background-color: transparent;
+  height: 21px;
+  left: 27px;
+  position: absolute;
+  top: 14px;
+  width: 54px;
+}
+
+.signup-page .status-bar-time-Bhbchl {
+  background-color: transparent;
+  border-radius: 24px;
+  height: 21px;
+  left: 0px;
+  position: relative;
+  top: 0px;
+  width: 54px;
+}
+
+.signup-page .x941-CwhxK8 {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: -0.41px;
+  line-height: 22px;
+  position: absolute;
+  text-align: center;
+  top: 1px;
+  white-space: nowrap;
+  width: 54px;
+}
+
+.signup-page .right-side-en6txR {
+  background-color: transparent;
+  height: 13px;
+  left: 286px;
+  position: absolute;
+  top: 19px;
+  width: 77px;
+}
+
+.signup-page .battery-VhxiaD {
+  background-color: transparent;
+  height: 13px;
+  left: 50px;
+  position: absolute;
+  top: 0px;
+  width: 27px;
+}
+
+.signup-page .wifi-VhxiaD {
+  background-color: transparent;
+  height: 12px;
+  left: 26px;
+  position: absolute;
+  top: 1px;
+  width: 17px;
+}
+
+.signup-page .icon-mobile-signal-VhxiaD {
+  background-color: transparent;
+  height: 12px;
+  left: 0px;
+  position: absolute;
+  top: 1px;
+  width: 18px;
+}
+
+.signup-page .videos-8Nxxpp {
+  background-color: transparent;
+  height: 306px;
+  left: 27px;
+  position: absolute;
+  top: 340px;
+  width: 340px;
+}
+
+.signup-page .titleslogan-8Nxxpp {
+  background-color: transparent;
+  height: 108px;
+  left: 31px;
+  position: absolute;
+  top: 219px;
+  width: 330px;
+}
+
+.signup-page .sign-up-for-savior-9SNALe {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 0px;
+  width: 272px;
+}
+
+.signup-page .your-personal-saved-videos-vault-9SNALe {
+  background-color: transparent;
+  height: auto;
+  left: 0px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 87px;
+  width: 326px;
+}
+
+.signup-page .rectangle-2-8Nxxpp {
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 28px;
+  left: 51px;
+  position: absolute;
+  top: 363px;
+  width: 292px;
+}
+
+.signup-page .create-username-8Nxxpp {
+  background-color: transparent;
+  height: auto;
+  left: 68px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 367px;
+  width: 187px;
+}
+
+.signup-page .rectangle-6-8Nxxpp {
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 28px;
+  left: 51px;
+  position: absolute;
+  top: 403px;
+  width: 292px;
+}
+
+.signup-page .email-8Nxxpp {
+  background-color: transparent;
+  height: auto;
+  left: 68px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 407px;
+  width: 187px;
+}
+
+.signup-page .search-bar-8Nxxpp {
+  background-color: transparent;
+  cursor: pointer;
+  height: 36px;
+  left: 42px;
+  position: absolute;
+  top: 582px;
+  width: 305px;
+}
+
+.signup-page .rectangle-4-8Nxxpp {
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 28px;
+  left: 51px;
+  position: absolute;
+  top: 472px;
+  width: 292px;
+}
+
+.signup-page .password-8Nxxpp {
+  background-color: transparent;
+  height: auto;
+  left: 68px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 477px;
+  width: 187px;
+}
+
+.signup-page .visible-eye-eyeball-open-view-8Nxxpp {
+  top: 478px;
+}
+
+.signup-page .rectangle-5-8Nxxpp {
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 28px;
+  left: 51px;
+  position: absolute;
+  top: 513px;
+  width: 292px;
+}
+
+.signup-page .confirm-password-8Nxxpp {
+  background-color: transparent;
+  height: auto;
+  left: 68px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
+  text-align: left;
+  top: 517px;
+  width: 187px;
+}
+
+.signup-page .visible-eye-eyeball-open-view-bG3jaD {
+  top: 518px;
+}
+
+.signup-page .visible-eye-eyeball-open-view {
+  background-color: transparent;
+  height: 15px;
+  left: 310px;
+  position: absolute;
+  width: 15px;
+}
+</style><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png"><meta name="og:type" content="website"><meta name="twitter:card" content="photo"></head><body style="margin: 0;background: #ffffff;"><input type="hidden" id="anPageName" name="page" value="signup-page"><div class="container-center-horizontal"><div class="signup-page screen " data-id="73:394" style="margin-top: 70px;"><img class="background-decor" data-id="73:395" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/background-decor.png" alt="Background decor"><img class="background-decor" data-id="73:399" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/background-decor.png" alt="Background decor"><div class="home-indicator-8Nxxpp" data-id="73:403"><div class="home-indicator-pj5xva" data-id="I73:403;5:3093"></div></div><div class="status-bar-i-phone-15-8Nxxpp" data-id="73:404"><img class="notch-en6txR" data-id="I73:404;839:7137" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/notch@2x.png" alt="Notch"><div class="left-side-en6txR" data-id="I73:404;839:7139"><div class="status-bar-time-Bhbchl" data-id="I73:404;839:7140"><div class="x941-CwhxK8 sfprotext-normal-black-17px" data-id="I73:404;839:7140;839:7100">9:41</div></div></div><div class="right-side-en6txR" data-id="I73:404;839:7141"><img class="battery-VhxiaD" data-id="I73:404;839:7142" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/battery@2x.png" alt="Battery"><img class="wifi-VhxiaD" data-id="I73:404;839:7146" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/wifi.svg" alt="Wifi"><img class="icon-mobile-signal-VhxiaD" data-id="I73:404;839:7150" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/icon---mobile-signal.svg" alt="Icon / Mobile Signal"></div></div><img class="videos-8Nxxpp" data-id="73:405" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/videos-4@2x.png" alt="Videos"><div class="titleslogan-8Nxxpp" data-id="73:407"><h1 class="sign-up-for-savior-9SNALe lantingheisc-heavy-normal-black-30px" data-id="73:408">Sign up for <br>SAVIOR</h1><p class="your-personal-saved-videos-vault-9SNALe laomn-regular-normal-black-15px" data-id="73:409">Your personal saved videos vault.</p></div><div class="rectangle-2-8Nxxpp" data-id="73:410"></div><div class="create-username-8Nxxpp laomn-regular-normal-black-14px" data-id="73:411">Create username</div><div class="rectangle-6-8Nxxpp" data-id="73:453"></div><div class="email-8Nxxpp laomn-regular-normal-black-14px" data-id="73:454">Email</div><a href="login-page"><img class="search-bar-8Nxxpp" data-id="73:415" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/search-bar-2.png" alt="Search bar" data-hotspot-id="hp-0"></a><div class="rectangle-4-8Nxxpp" data-id="73:441"></div><div class="password-8Nxxpp laomn-regular-normal-black-14px" data-id="73:442">Password</div><img class="visible-eye-eyeball-open-view-8Nxxpp visible-eye-eyeball-open-view" data-id="73:443" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/visible--eye-eyeball-open-view-1.svg" alt="visible--eye-eyeball-open-view"><div class="rectangle-5-8Nxxpp" data-id="73:447"></div><div class="confirm-password-8Nxxpp laomn-regular-normal-black-14px" data-id="73:448">Confirm password</div><img class="visible-eye-eyeball-open-view-bG3jaD visible-eye-eyeball-open-view" data-id="73:449" src="https://cdn.animaapp.com/projects/660fbf44c6f7f9a3f7c617e8/releases/660fbfc53e4224fcdf69a7bb/img/visible--eye-eyeball-open-view-2.svg" alt="visible--eye-eyeball-open-view"></div></div><script src="launchpad-js/launchpad-banner.js" async=""></script><script defer="" src="https://animaapp.s3.amazonaws.com/static/restart-btn.min.js"></script><div id="anima-interface" data-turbo-permanent="true" class="idle"><!---->
+    
+  <!----></div><div id="hotspots_wrapper"><div class="hotspot" id="hp-0" style="width: 305px; height: 36px; top: 652px; left: 329.4px; opacity: 0; z-index: -1;"></div><div class="hotspot" id="hp-1" style="top: 88.8px; left: 0px; opacity: 0; z-index: -1;"></div></div><div id="t_preload_links"></div></body></html>
